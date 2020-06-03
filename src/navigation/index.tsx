@@ -1,9 +1,9 @@
 import React from 'react';
-import OnboardingStack from './OnboardingStack';
 import { NavigationContainer } from '@react-navigation/native';
+import ModalStack from './ModalStack';
 
 export default () => (
   <NavigationContainer>
-    <OnboardingStack />
+    <ModalStack />
   </NavigationContainer>
 )

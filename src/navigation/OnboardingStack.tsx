@@ -39,7 +39,7 @@ function CoachScreen2({navigation}: ProfileNameScreenProps) {
   return (
     <Screen>
       <Text>I should have mentioned, you're going to need to tell me what you want to work on, first. Like, give me a couple of ideas at least.</Text>
-      <Button title={'Ok'} onPress={() => {}} />
+      <Button title={'Ok'} onPress={() => navigation.navigate('CreateIdeaModal')} />
     </Screen>
   );
 }
@@ -47,7 +47,9 @@ function CoachScreen2({navigation}: ProfileNameScreenProps) {
 const Stack = createStackNavigator<OnboardingStackParamList>();
 
 const OnboardingStack = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    headerMode="none"
+  >
     <Stack.Screen name="Welcome" component={WelcomeScreen} />
     <Stack.Screen name="Profile" component={ProfileNameScreen} />
     <Stack.Screen name="CoachScreen1" component={CoachScreen1} />
