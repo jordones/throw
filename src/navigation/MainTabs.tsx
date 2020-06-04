@@ -2,7 +2,6 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {Text, TouchableOpacity, View, SafeAreaView, StyleSheet} from 'react-native';
 import Screen from '../styleguide/Screens/Screen';
-// import { SafeAreaView } from 'react-native-safe-area-context';
 import Palette from '../styleguide/Palette';
 
 const Tab = createBottomTabNavigator();

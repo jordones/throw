@@ -39,8 +39,6 @@ function CreateIdea({navigation}: CreateIdeaModalProps) {
         <TextInput placeholder={'It\'s like Uber for six sided dice.'}/>
         <Button title={'That\'s it'} onPress={() => {
           setUiState('error')
-          console.log('teste')
-          // navigation.navigate('OnboardingStack');
         }}/>
       </Centered>;
       break;

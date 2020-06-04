@@ -1,7 +1,5 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { CompositeNavigationProp } from '@react-navigation/native';
-import { OnboardingStackParamList } from './Onboarding';
 
 /* Modal Stack Types Begin */
 export type ModalStackParamList = {
