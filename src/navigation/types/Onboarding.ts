@@ -7,6 +7,7 @@ export type OnboardingStackParamList = {
   Profile: undefined;
   CoachScreen1: undefined;
   CoachScreen2: undefined;
+  MainTabs: undefined;
 };
 
 type WelcomeScreenRouteProp = RouteProp<OnboardingStackParamList, 'Welcome'>;

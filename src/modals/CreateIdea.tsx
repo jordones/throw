@@ -16,7 +16,7 @@ function CreateIdea({navigation}: CreateIdeaModalProps) {
   const [uiState, setUiState] = useState(undefined);
   useEffect(() => {
     const unsubscribe = navigation.addListener('blur', () => {
-      navigation.navigate('OnboardingStack');
+      navigation.navigate('MainTabs');
     });
 
     return () => {unsubscribe()};

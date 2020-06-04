@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import CreateIdea from '../modals/CreateIdea';
 import {ModalStackParamList} from './types/Modal';
 import OnboardingStack from './OnboardingStack'
+import MainTabs from './MainTabs';
 
 const Stack = createStackNavigator<ModalStackParamList>();
 

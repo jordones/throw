@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { TextInput } from 'react-native-gesture-handler';
 import { OnboardingStackParamList, WelcomeScreenProps, ProfileNameScreenProps } from './types/Onboarding';
 import Screen from '../styleguide/Screens/Screen';
+import MainTabs from './MainTabs';
 function WelcomeScreen({navigation, route}: WelcomeScreenProps) {
   return (
     <Screen>
@@ -49,11 +50,17 @@ const Stack = createStackNavigator<OnboardingStackParamList>();
 const OnboardingStack = () => (
   <Stack.Navigator
     headerMode="none"
+    screenOptions={{
+      gestureEnabled: false,
+      animationEnabled: false,
+    }}
   >
     <Stack.Screen name="Welcome" component={WelcomeScreen} />
     <Stack.Screen name="Profile" component={ProfileNameScreen} />
     <Stack.Screen name="CoachScreen1" component={CoachScreen1} />
     <Stack.Screen name="CoachScreen2" component={CoachScreen2} />
+    <Stack.Screen name="MainTabs" component={MainTabs} />
+
   </Stack.Navigator>
 );
 
