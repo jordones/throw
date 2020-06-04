@@ -17,13 +17,6 @@ export type CreateIdeaModalProps = {
   navigation: CreateIdeaModalNavigationProp;
 };
 
-
-// export type OnboardingStackNavigationProp = CompositeNavigationProp<
-//   StackNavigationProp<ModalStackParamList, 'OnboardingStack'>,
-//   StackNavigationProp<OnboardingStackParamList>
-//   >;
-
-
 /* Modal Stack Types End */
 
 
