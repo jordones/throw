@@ -1,20 +1,28 @@
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
+import Palette from './Palette';
 
 const styles = StyleSheet.create({
   default: {
   },
   title: {
+    color: Palette.white,
     fontSize: 48,
     fontWeight: 'bold',
   },
   paragraph: {
+    color: Palette.white,
     fontSize: 48,
     fontWeight: '500',
+  },
+  button: {
+    color: Palette.white,
+    fontSize: 32,
+    fontWeight: '600',
   }
 })
 
-type TextVariant = 'Title' | 'Paragraph';
+type TextVariant = 'Title' | 'Paragraph' | 'Button';
 
 interface Props {
   children?: any;
@@ -32,6 +40,9 @@ export default ({children, style, variant, ...props}: Props) => {
       break;
     case 'Paragraph':
       selectedStyle = styles.paragraph;
+      break;
+    case 'Button':
+      selectedStyle = styles.button;
       break;
     default:
       selectedStyle = styles.default;

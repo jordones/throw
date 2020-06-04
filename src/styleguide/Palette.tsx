@@ -6,5 +6,4 @@ export default {
   primary: '#162447',
   dark: '#1b1b2f',
   black: '#342b38',
-
 }

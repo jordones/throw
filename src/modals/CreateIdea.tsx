@@ -5,7 +5,8 @@ import Centered from '../styleguide/Screens/Centered';
 import { TextInput } from 'react-native-gesture-handler';
 import { CreateIdeaModalProps } from '../navigation/types/Modal';
 import Text from '../styleguide/Text';
-
+import PrimaryButton from '../styleguide/Buttons/PrimaryButton';
+import Palette from '../styleguide/Palette';
 function SuccessView() {
   return <Centered>
     <Text variant="Title">That's a good one, I'll remember it for you.</Text>
@@ -35,17 +36,15 @@ function CreateIdea({navigation}: CreateIdeaModalProps) {
       </Centered>;
       break;
     default:
-      View = <Centered>
+      View = <Centered >
         <Text variant="Paragraph">Alright, What's your latest briliant idea?</Text>
         <TextInput placeholder={'It\'s like Uber for six sided dice.'}/>
-        <Button title={'That\'s it'} onPress={() => {
-          setUiState('error')
-        }}/>
+        <PrimaryButton label={"That's it."} onPress={() => setUiState('error')} />
       </Centered>;
       break;
   }
   return (
-    <Modal>
+    <Modal style={{backgroundColor: Palette.secondary}}>
       {View}
     </Modal>
   )
