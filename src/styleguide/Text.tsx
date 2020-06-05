@@ -12,8 +12,9 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     color: Palette.white,
-    fontSize: 48,
+    fontSize: 28,
     fontWeight: '500',
+    textAlign: 'center',
   },
   button: {
     color: Palette.white,
