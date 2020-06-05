@@ -1,13 +1,26 @@
 import React from 'react';
-import Text from '../Text';
+import Text, { TextVariant } from '../Text';
 import Palette from '../Palette';
 import { TouchableOpacity } from 'react-native';
+
+type Size = 'Small'
 
 interface Props {
   onPress: () => any;
   label: string;
+  size?: Size
 }
-export default ({onPress, label}: Props) => {
+export default ({onPress, label, size}: Props) => {
+  let textVariant: TextVariant = 'Button';
+  switch (size) {
+    case 'Small':
+      textVariant = 'ButtonSmall';
+      break;
+    default:
+      textVariant = 'Button';
+      break;
+  }
+
   return (
     <TouchableOpacity 
       style={{
@@ -18,7 +31,7 @@ export default ({onPress, label}: Props) => {
         borderRadius: 100,
       }}
       onPress={onPress}>
-     <Text variant={"Button"}>{label}</Text>
+     <Text variant={textVariant}>{label}</Text>
     </TouchableOpacity>
   )
 }
