@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {TouchableOpacity, View, SafeAreaView, StyleSheet} from 'react-native';
 import Screen from '../styleguide/Screens/Screen';
@@ -6,19 +6,33 @@ import Palette from '../styleguide/Palette';
 import PrimaryButton from '../styleguide/Buttons/PrimaryButton';
 import Text from '../styleguide/Text';
 import Centered from '../styleguide/Screens/Centered';
+import LottieView from "lottie-react-native";
+import { Animated, Easing } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
 function IdeasScreen({navigation}) {
+  const rollAnimation = useRef(new Animated.Value(0)).current;
+
+  const playAnimation = () => {
+    Animated.timing(rollAnimation, {
+      toValue: 0.78,
+      duration: 4775
+    }).start();
+  };
   return <Screen style={{backgroundColor: Palette.primary}}>
+    <LottieView
+      source={require('../../assets/lottie/3609-dice-animation.json')}
+      progress={rollAnimation}
+    />
     <View style={{
       flex: 1,
-      paddingHorizontal: 24}}>
-
+      justifyContent: 'flex-end',
+      marginBottom: 64,
+      paddingHorizontal: 12}}>
     
-    <Text variant={'Title'}>Hey.</Text>
-
-    <PrimaryButton label={"What's my next project?"} onPress={() => navigation.push('CoachScreen1')} />
+    <PrimaryButton size={"Small"} label={"What's my next project?"} onPress={() => playAnimation()} />
+ 
     </View>
   </Screen>;
 }

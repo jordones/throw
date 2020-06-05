@@ -20,10 +20,17 @@ const styles = StyleSheet.create({
     color: Palette.white,
     fontSize: 32,
     fontWeight: '600',
+    textAlign: 'center',
+  },
+  buttonSmall: {
+    color: Palette.white,
+    fontSize: 28,
+    fontWeight: '600',
+    textAlign: 'center',
   }
 })
 
-type TextVariant = 'Title' | 'Paragraph' | 'Button';
+export type TextVariant = 'Title' | 'Paragraph' | 'Button' | 'ButtonSmall';
 
 interface Props {
   children?: any;
@@ -44,6 +51,9 @@ export default ({children, style, variant, ...props}: Props) => {
       break;
     case 'Button':
       selectedStyle = styles.button;
+      break;
+    case 'ButtonSmall':
+      selectedStyle = styles.buttonSmall;
       break;
     default:
       selectedStyle = styles.default;
