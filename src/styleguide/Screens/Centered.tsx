@@ -9,9 +9,10 @@ const styles = StyleSheet.create({
   }
 })
 
-function Centered({children}: any) {
+function Centered({children, style, props}: any) {
+  const mergedStyle = StyleSheet.compose(styles.centered, style)
   return (
-    <View style={styles.centered}>
+    <View style={mergedStyle} {...props}>
       {children}
     </View>
   )

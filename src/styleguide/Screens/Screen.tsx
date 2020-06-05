@@ -8,7 +8,7 @@ interface Props {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center' }
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
 });
 
 function Screen({children, style}: Props) {
@@ -16,7 +16,7 @@ function Screen({children, style}: Props) {
 
   return (
     <SafeAreaView style={mergedStyle}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       {children}
     </SafeAreaView>
   );

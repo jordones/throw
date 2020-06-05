@@ -1,27 +1,53 @@
 import React from 'react';
-import { Text, Button, KeyboardAvoidingView } from 'react-native';
+import { Button, KeyboardAvoidingView, View, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { OnboardingStackParamList, WelcomeScreenProps, ProfileNameScreenProps } from './types/Onboarding';
 import Screen from '../styleguide/Screens/Screen';
 import MainTabs from './MainTabs';
+import Text from '../styleguide/Text';
+import Palette from '../styleguide/Palette';
+import PrimaryButton from '../styleguide/Buttons/PrimaryButton';
+
 function WelcomeScreen({navigation, route}: WelcomeScreenProps) {
   return (
-    <Screen>
-      <Text>Hey.</Text>
-      <Text>Throw exists to get you started on your next project.</Text>
-      <Button title={'OK'} onPress={() => navigation.push('Profile')} />
+    <Screen style={{backgroundColor: Palette.primary}}>
+      <View style={{alignItems: 'flex-start', paddingHorizontal: 24}}>
+        <Text variant={'Title'}>Hey.</Text>
+        <Text variant={'Title'}>Throw exists to get you started on your next project.</Text>
+        <PrimaryButton label={"Ok."} onPress={() => navigation.push('Profile')} />
+      </View>
     </Screen>
   );
 }
 
 function ProfileNameScreen({navigation}: ProfileNameScreenProps) {
   return (
-    <Screen>
-      <KeyboardAvoidingView>
-      <Text>It'll help if I know what to call you...</Text>
-      <TextInput placeholder={'Link'}/>
-      <Button title={'Done'} onPress={() => navigation.push('CoachScreen1')} />
+    <Screen style={{backgroundColor: Palette.primary}}>
+      <KeyboardAvoidingView style={{alignItems: 'flex-start', paddingHorizontal: 24}}>
+      <Text variant={'Title'}>It'll help if I know what to call you...</Text>
+      <View style={{flexDirection: 'row',
+          marginVertical: 12,
+        }}>
+        <Text style={{
+          color: Palette.background,
+          fontSize: 18,
+          borderBottomColor: Palette.placeholder,
+          borderBottomWidth: StyleSheet.hairlineWidth,
+        }}>@</Text>
+        <TextInput
+        style={{
+          color: Palette.white,
+          fontSize: 18,
+          borderBottomColor: Palette.white,
+          borderBottomWidth: StyleSheet.hairlineWidth,
+          width: 250,
+        }}
+        maxLength={20}
+        placeholderTextColor={Palette.placeholder}
+      placeholder={'BeatboxBandit'}/>
+      </View>
+      <PrimaryButton label={"Done."} onPress={() => navigation.push('CoachScreen1')} />
       </KeyboardAvoidingView>
     </Screen>
   );
@@ -29,18 +55,24 @@ function ProfileNameScreen({navigation}: ProfileNameScreenProps) {
 
 function CoachScreen1({navigation}: ProfileNameScreenProps) {
   return (
-    <Screen>
-      <Text>Me again... Hit that button to get started.</Text>
-      <Button title={'Give me a project'} onPress={() => navigation.push('CoachScreen2')} />
+    <Screen style={{backgroundColor: Palette.primary}}>
+      <View style={{alignItems: 'flex-start', paddingHorizontal: 24}}>
+      <Text variant={"Title"}>Now, Hit this button to get started.</Text>
+      <PrimaryButton label={"Give me a project."} onPress={() => navigation.push('CoachScreen2')} />
+
+      </View>
     </Screen>
   );
 }
 
 function CoachScreen2({navigation}: ProfileNameScreenProps) {
   return (
-    <Screen>
-      <Text>I should have mentioned, you're going to need to tell me what you want to work on, first. Like, give me a couple of ideas at least.</Text>
-      <Button title={'Ok'} onPress={() => navigation.navigate('CreateIdeaModal')} />
+    <Screen style={{backgroundColor: Palette.primary}}>
+      <View style={{alignItems: 'flex-start', paddingHorizontal: 24}}>
+        <Text variant={"Title"}>I should have mentioned, you're going to need to tell me what you want to work on, first. Like, give me a couple of ideas at least.</Text>
+        <PrimaryButton label={"Done."} onPress={() => navigation.push('CreateIdeaModal')} />
+
+      </View>
     </Screen>
   );
 }

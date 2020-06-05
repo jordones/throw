@@ -1,14 +1,25 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {Text, TouchableOpacity, View, SafeAreaView, StyleSheet} from 'react-native';
+import {TouchableOpacity, View, SafeAreaView, StyleSheet} from 'react-native';
 import Screen from '../styleguide/Screens/Screen';
 import Palette from '../styleguide/Palette';
+import PrimaryButton from '../styleguide/Buttons/PrimaryButton';
+import Text from '../styleguide/Text';
+import Centered from '../styleguide/Screens/Centered';
 
 const Tab = createBottomTabNavigator();
 
-function IdeasScreen() {
-  return <Screen>
-    <Text>IdeaScreen</Text>
+function IdeasScreen({navigation}) {
+  return <Screen style={{backgroundColor: Palette.primary}}>
+    <View style={{
+      flex: 1,
+      paddingHorizontal: 24}}>
+
+    
+    <Text variant={'Title'}>Hey.</Text>
+
+    <PrimaryButton label={"What's my next project?"} onPress={() => navigation.push('CoachScreen1')} />
+    </View>
   </Screen>;
 }
 
@@ -25,7 +36,7 @@ function AddIdea({navigation}) {
 function MyTabBar({ state, descriptors, navigation }) {
   return (
     // make this bg colour the same as the main bg
-    <SafeAreaView style={{ backgroundColor: Palette.background, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+    <SafeAreaView style={{ backgroundColor: Palette.primary, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       <View style={{flexDirection: 'row'}}>
 
       {state.routes.map((route, index) => {
@@ -74,24 +85,26 @@ function MyTabBar({ state, descriptors, navigation }) {
               marginLeft: isLeft ? 8 : 0,
               marginRight: isLeft ? 0 : 8,
               marginBottom: 12,
-              backgroundColor: isFocused ? Palette.primary : Palette.secondary,
+              backgroundColor: isFocused ? Palette.secondary : Palette.primary,
               justifyContent: 'center',
               alignItems: 'center',
-              shadowColor: Palette.black,
+              shadowColor: 'black',
               shadowOffset: {
                 height: 2,
                 width: 0,
               },
-              shadowRadius: 2,
-              shadowOpacity: 0.2,
-              borderWidth: 2,
+              shadowRadius: 5,
+              shadowOpacity: 0.8,
+              borderWidth: 0,
               borderLeftWidth: isLeft ? 2 : 0,
               borderRightWidth: isLeft ? 0 : 2,
-              borderRightColor: isLeft ? Palette.tertiary : Palette.black,
-              borderLeftColor: isLeft ? Palette.black : Palette.tertiary,
+              zIndex: isFocused ? 100 : 50,
+              // borderRightColor: isLeft ? Palette.tertiary : 'black',
+              // borderLeftColor: isLeft ? 'black' : Palette.tertiary,
+              borderColor: 'transparent',
             }}
           >
-            <Text style={{ color: isFocused ? Palette.white : Palette.primary, fontSize: 16, margin: 12 }}>
+            <Text style={{ color: isFocused ? Palette.white : Palette.placeholder, fontSize: 16, margin: 12 }}>
               {label}
             </Text>
           </TouchableOpacity>
@@ -108,19 +121,19 @@ function MyTabBar({ state, descriptors, navigation }) {
         marginTop: -80,
         borderRadius: 35,
         borderWidth: 2,
-        shadowColor: Palette.black,
+        shadowColor: 'black',
         shadowOffset: {
           height: 2,
           width: 0,
         },
         shadowRadius: 2,
-        shadowOpacity: 0.2,
+        shadowOpacity: 0.5,
         backgroundColor: Palette.tertiary,
         justifyContent: 'center',
         alignItems: 'center',
       }}
       >
-        <Text>+</Text>
+        <Text>🗒</Text>
       </View>
       </TouchableOpacity>
     </SafeAreaView>
