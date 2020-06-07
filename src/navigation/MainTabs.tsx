@@ -11,15 +11,24 @@ import { Animated, Easing } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
+const ANIMATION_DURATION = 4775;
 function IdeasScreen({navigation}) {
   const rollAnimation = useRef(new Animated.Value(0)).current;
 
   const playAnimation = () => {
     Animated.timing(rollAnimation, {
       toValue: 0.78,
-      duration: 4775
+      duration: ANIMATION_DURATION,
     }).start();
   };
+
+  const handleNextProjectRequested = async () => {
+    playAnimation();
+    await new Promise((resolve) => {
+      setTimeout(() => resolve(navigation.navigate('CreateIdeaModal')), ANIMATION_DURATION);
+    });
+  }
+
   return <Screen style={{backgroundColor: Palette.primary}}>
     <LottieView
       source={require('../../assets/lottie/3609-dice-animation.json')}
@@ -31,7 +40,7 @@ function IdeasScreen({navigation}) {
       marginBottom: 64,
       paddingHorizontal: 12}}>
     
-    <PrimaryButton size={"Small"} label={"What's my next project?"} onPress={() => playAnimation()} />
+    <PrimaryButton size={"Small"} label={"What's my next project?"} onPress={handleNextProjectRequested} />
  
     </View>
   </Screen>;
