@@ -42,6 +42,10 @@ export type CoachScreen2Props = {
   navigation: CoachScreen2NavigationProp;
 }
 
+
+export type OnboardingNavigation = WelcomeScreenNavigationProp | ProfileNameScreenNavigationProp | CoachScreen1NavigationProp | CoachScreen2NavigationProp;
+export type OnboardingRoute = WelcomeScreenRouteProp | ProfileNameScreenRouteProp | CoachScreen1RouteProp | CoachScreen2RouteProp;
+export type OnboardingRouteName = 'Welcome' | 'Profile' | 'CoachScreen1' | 'CoachScreen2' | 'MainTabs';
 /* Onboarding Stack Types End */
 
 

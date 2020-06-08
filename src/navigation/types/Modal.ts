@@ -15,6 +15,9 @@ export type CreateIdeaModalProps = {
   navigation: CreateIdeaModalNavigationProp;
 };
 
+export type ModalNavigation = CreateIdeaModalNavigationProp;
+export type ModalRouteName = 'CreateIdeaModal' | 'OnboardingStack';
+
 /* Modal Stack Types End */
 
 

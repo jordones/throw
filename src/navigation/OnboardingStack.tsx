@@ -8,18 +8,8 @@ import MainTabs from './MainTabs';
 import Text from '../styleguide/Text';
 import Palette from '../styleguide/Palette';
 import PrimaryButton from '../styleguide/Buttons/PrimaryButton';
+import {OnboardingScreen} from '../screens/Onboarding';
 
-function WelcomeScreen({navigation, route}: WelcomeScreenProps) {
-  return (
-    <Screen style={{backgroundColor: Palette.primary}}>
-      <View style={{alignItems: 'flex-start', paddingHorizontal: 24}}>
-        <Text variant={'Title'}>Hey.</Text>
-        <Text variant={'Title'}>Throw exists to get you started on your next project.</Text>
-        <PrimaryButton label={"Ok."} onPress={() => navigation.push('Profile')} />
-      </View>
-    </Screen>
-  );
-}
 
 function ProfileNameScreen({navigation}: ProfileNameScreenProps) {
   return (
@@ -53,32 +43,8 @@ function ProfileNameScreen({navigation}: ProfileNameScreenProps) {
   );
 }
 
-function CoachScreen1({navigation}: ProfileNameScreenProps) {
-  return (
-    <Screen style={{backgroundColor: Palette.primary}}>
-      <View style={{alignItems: 'flex-start', paddingHorizontal: 24}}>
-      <Text variant={"Title"}>Now, Hit this button to get started.</Text>
-      <PrimaryButton label={"Give me a project."} onPress={() => navigation.push('CoachScreen2')} />
-
-      </View>
-    </Screen>
-  );
-}
-
-function CoachScreen2({navigation}: ProfileNameScreenProps) {
-  return (
-    <Screen style={{backgroundColor: Palette.primary}}>
-      <View style={{alignItems: 'flex-start', paddingHorizontal: 24}}>
-        <Text variant={"Title"}>I should have mentioned, you're going to need to tell me what you want to work on, first. Like, give me a couple of ideas at least.</Text>
-        <PrimaryButton label={"Done."} onPress={() => navigation.push('CreateIdeaModal')} />
-
-      </View>
-    </Screen>
-  );
-}
-
 const Stack = createStackNavigator<OnboardingStackParamList>();
-
+const needsOnboarding = true;
 const OnboardingStack = () => (
   <Stack.Navigator
     headerMode="none"
@@ -87,10 +53,12 @@ const OnboardingStack = () => (
       animationEnabled: false,
     }}
   >
-    <Stack.Screen name="Welcome" component={WelcomeScreen} />
-    <Stack.Screen name="Profile" component={ProfileNameScreen} />
-    <Stack.Screen name="CoachScreen1" component={CoachScreen1} />
-    <Stack.Screen name="CoachScreen2" component={CoachScreen2} />
+    { needsOnboarding && <>
+      <Stack.Screen name="Welcome" component={OnboardingScreen} />
+      <Stack.Screen name="Profile" component={OnboardingScreen} />
+      <Stack.Screen name="CoachScreen1" component={OnboardingScreen} />
+      <Stack.Screen name="CoachScreen2" component={OnboardingScreen} />
+    </>}
     <Stack.Screen name="MainTabs" component={MainTabs} />
 
   </Stack.Navigator>
