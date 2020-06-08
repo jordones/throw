@@ -3,15 +3,26 @@ import OnboardingReducer, { initialState } from '../reducers/OnboardingReducer';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const ONBOARDING_STATUS_KEY = 'onboarding_status'
-export const OnboardingContext = React.createContext(null);
 
-export const OnboardingProvider = ({children}) => {
+export const OnboardingContext = React.createContext({
+  state: {
+    isLoading: false,
+    isOnboarded: false,
+    username: '',
+  },
+  actions: {
+    getOnboardingStatus: async () => {},
+    setOnboardingStatus: async(userName: string) => {},
+  }
+});
+
+export const OnboardingProvider = ({children}: any) => {
   const [state, dispatch] = useReducer(
     OnboardingReducer,
     initialState
   );
   
-  const onboardingContextActions = React.useMemo(
+  const actions = React.useMemo(
     () => ({
       getOnboardingStatus: async () => {
         try {
@@ -41,7 +52,7 @@ export const OnboardingProvider = ({children}) => {
   const contextValue = useMemo(
     () => ({
       state,
-      onboardingContextActions
+      actions
     }),
     [state, dispatch]
   );

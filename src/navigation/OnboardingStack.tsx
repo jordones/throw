@@ -48,12 +48,12 @@ const Stack = createStackNavigator<OnboardingStackParamList>();
 
 // const needsOnboarding = true;
 const OnboardingStack = () => { 
-  const {state, onboardingContextActions} = useContext(OnboardingContext);
+  const {state, actions} = useContext(OnboardingContext);
 
   useEffect(() => {
-    onboardingContextActions.getOnboardingStatus();
+    actions.getOnboardingStatus();
   }, []);
-  
+
   console.log(state);
   if (state.isLoading) {
     return (
