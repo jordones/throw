@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Button, KeyboardAvoidingView, View, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
@@ -9,6 +9,7 @@ import Text from '../styleguide/Text';
 import Palette from '../styleguide/Palette';
 import PrimaryButton from '../styleguide/Buttons/PrimaryButton';
 import {OnboardingScreen} from '../screens/Onboarding';
+import { OnboardingContext } from '../context/OnboardingContext';
 
 
 function ProfileNameScreen({navigation}: ProfileNameScreenProps) {
@@ -44,8 +45,25 @@ function ProfileNameScreen({navigation}: ProfileNameScreenProps) {
 }
 
 const Stack = createStackNavigator<OnboardingStackParamList>();
-const needsOnboarding = true;
-const OnboardingStack = () => (
+
+// const needsOnboarding = true;
+const OnboardingStack = () => { 
+  const {state, onboardingContextActions} = useContext(OnboardingContext);
+
+  useEffect(() => {
+    onboardingContextActions.getOnboardingStatus();
+  }, []);
+  
+  console.log(state);
+  if (state.isLoading) {
+    return (
+      <>
+      <Text>loading</Text>
+      </>
+    )
+  }
+  return (
+
   <Stack.Navigator
     headerMode="none"
     screenOptions={{
@@ -53,15 +71,18 @@ const OnboardingStack = () => (
       animationEnabled: false,
     }}
   >
-    { needsOnboarding && <>
+    { state.isOnboarded ? (
+      <Stack.Screen name="MainTabs" component={MainTabs} />
+    ) : (
+      <>
       <Stack.Screen name="Welcome" component={OnboardingScreen} />
       <Stack.Screen name="Profile" component={OnboardingScreen} />
       <Stack.Screen name="CoachScreen1" component={OnboardingScreen} />
       <Stack.Screen name="CoachScreen2" component={OnboardingScreen} />
-    </>}
-    <Stack.Screen name="MainTabs" component={MainTabs} />
-
+    </>
+    )
+    }
   </Stack.Navigator>
-);
+)};
 
 export default OnboardingStack;
