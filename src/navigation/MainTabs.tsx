@@ -47,8 +47,10 @@ function IdeasScreen({navigation}) {
 }
 
 function ResultsScreen() {
-  return <Screen>
-    <Text>IdeaScreen</Text>
+  return <Screen style={{backgroundColor: Palette.primary, }}>
+    <View style={{alignItems: 'flex-start', paddingHorizontal: 12}}>
+      <Text variant={'Title'}>This screen needs some planning. In the future, You'll be able to upload what you've made.</Text>
+    </View>
   </Screen>;
 }
 
