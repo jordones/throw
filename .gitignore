@@ -12,3 +12,8 @@ web-report/
 
 # macOS
 .DS_Store
+
+
+# Firebase Credentials
+services/firebaseConfig.js
+services/firebase.js
