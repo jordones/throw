@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {StyleSheet} from 'react-native';
 import Modal from '../styleguide/Screens/Modal';
 import Centered from '../styleguide/Screens/Centered';
@@ -7,20 +7,19 @@ import { CreateIdeaModalProps } from '../navigation/types/Modal';
 import Text from '../styleguide/Text';
 import PrimaryButton from '../styleguide/Buttons/PrimaryButton';
 import Palette from '../styleguide/Palette';
+import { OnboardingContext } from '../context/OnboardingContext';
 function SuccessView() {
+  const {actions} = useContext(OnboardingContext);
+  useEffect(() => {
+    actions.finishOnboarding();
+  }, [])
   return <Text variant="Title">That's a good one, I'll remember it for you.</Text>
 };
 
 
 function CreateIdea({navigation}: CreateIdeaModalProps) {
   const [uiState, setUiState] = useState(undefined);
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('blur', () => {
-      navigation.navigate('MainTabs');
-    });
-
-    return () => {unsubscribe()};
-  });
+  const {actions} = useContext(OnboardingContext);
 
   let View;
 
@@ -51,7 +50,7 @@ function CreateIdea({navigation}: CreateIdeaModalProps) {
           returnKeyType={"done"}
           placeholderTextColor={Palette.placeholder}
         placeholder={'It\'s like Uber for six sided dice.'}/>
-        <PrimaryButton label={"That's it."} onPress={() => setUiState('error')} />
+        <PrimaryButton label={"That's it."} onPress={() => setUiState('success')} />
         </>;
       break;
   }

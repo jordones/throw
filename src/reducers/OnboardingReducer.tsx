@@ -1,10 +1,7 @@
-import {useReducer} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-
 export const initialState = {
   loading: true,
   isOnboarded: false,
-  userName: '',
+  username: '',
 };
 
 export default function (state, action) {
@@ -13,14 +10,21 @@ export default function (state, action) {
       return {
         ...state,
         isOnboarded: action.isOnboarded,
+        userId: action.userId ? action.userId : '',
+        username: action.username ? action.username : '',
         loading: false,
       };
     case 'SIGN_UP':
       return {
         ...state,
-        isOnboarded: action.isOnboarded,
         loading: false,
-        userName: action.userName,
+        username: action.username,
+        userId: action.userId,
+      };
+    case 'FINISH_ONBOARDING':
+      return {
+        ...state,
+        isOnboarded: action.isOnboarded,
       };
     default:
       throw new Error();

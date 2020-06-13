@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Navigation from './src/navigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {OnboardingProvider} from './src/context/OnboardingContext';

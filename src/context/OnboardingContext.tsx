@@ -1,18 +1,21 @@
 import React, { useReducer, useMemo } from 'react';
 import OnboardingReducer, { initialState } from '../reducers/OnboardingReducer';
 import AsyncStorage from '@react-native-community/async-storage';
+import {auth} from '../../services/firebase';
 
-const ONBOARDING_STATUS_KEY = 'onboarding_status'
+const USER_ID_KEY = 'user_id';
 
 export const OnboardingContext = React.createContext({
   state: {
     isLoading: false,
     isOnboarded: false,
     username: '',
+    userId: '',
   },
   actions: {
-    getOnboardingStatus: async () => {},
-    setOnboardingStatus: async(userName: string) => {},
+    signIn: async () => {},
+    signUp: async(userName: string) => {},
+    finishOnboarding: () => {},
   }
 });
 
@@ -24,11 +27,13 @@ export const OnboardingProvider = ({children}: any) => {
   
   const actions = React.useMemo(
     () => ({
-      getOnboardingStatus: async () => {
+      signIn: async () => {
         try {
-          const onboardingStatus = await AsyncStorage.getItem(ONBOARDING_STATUS_KEY);
-          if (onboardingStatus && JSON.parse(onboardingStatus)) {
-            dispatch({ type: 'SIGN_IN', isOnboarded: true });
+          const userId = await AsyncStorage.getItem(USER_ID_KEY);
+          if (userId && JSON.parse(userId) !== '') {
+            const existingUser = await auth.signInAnonymously();
+            const {user: {uid, displayName}} = existingUser
+            dispatch({ type: 'SIGN_IN', isOnboarded: true, userId: uid, username: displayName,});
           } else {
             dispatch({ type: 'SIGN_IN', isOnboarded: false });
           }
@@ -36,14 +41,22 @@ export const OnboardingProvider = ({children}: any) => {
           dispatch({ type: 'SIGN_IN', isOnboarded: false });
         }
       },
-      setOnboardingStatus: async (userName: string) => {
+      signUp: async (username: string) => {
         try {
-          await AsyncStorage.setItem(ONBOARDING_STATUS_KEY, JSON.stringify(status));
-          dispatch({ type: 'SIGN_UP',  isOnboarded: true, userName});
+          const newUser = await auth.signInAnonymously();
+          await newUser.user.updateProfile({displayName: username});
+          const {user: {uid, displayName}} = newUser;
+          console.log(uid, displayName);
+          await AsyncStorage.setItem(USER_ID_KEY, JSON.stringify(uid));
+          dispatch({ type: 'SIGN_UP', userId: uid, username: displayName,});
         } catch (error) {
+          console.log(error);
           // log as error
           return;
         }
+      },
+      finishOnboarding: () => {
+          dispatch({ type: 'FINISH_ONBOARDING', isOnboarded: true});
       },
     }),
     [dispatch]
@@ -63,6 +76,3 @@ export const OnboardingProvider = ({children}: any) => {
     </OnboardingContext.Provider>
   )
 }
-
-
-

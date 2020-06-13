@@ -1,11 +1,12 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useContext } from 'react';
+import { View, KeyboardAvoidingView, TextInput, StyleSheet } from 'react-native';
 import Screen from '../styleguide/Screens/Screen';
 import Text from '../styleguide/Text';
 import PrimaryButton from '../styleguide/Buttons/PrimaryButton';
-import {OnboardingNavigation, OnboardingRoute, OnboardingRouteName} from '../navigation/types/Onboarding';
+import {OnboardingNavigation, OnboardingRoute, OnboardingRouteName, ProfileNameScreenProps} from '../navigation/types/Onboarding';
 import {ModalNavigation, ModalRouteName} from '../navigation/types/Modal';
 import Palette from '../styleguide/Palette';
+import { OnboardingContext } from '../context/OnboardingContext';
 
 interface ViewProps {
   navigation: OnboardingNavigation | ModalNavigation;
@@ -22,11 +23,55 @@ function OnboardingView({navigation, nextScreen, ...props}: ViewProps) {
       <View style={{alignItems: 'flex-start', paddingHorizontal: 12}}>
         {props.title !== undefined && <Text variant={'Title'}>{props.title}</Text>}
         {props.description !== undefined && <Text variant={'Title'}>{props.description}</Text>}
-        <PrimaryButton size={props.buttonSmall ? 'Small' : undefined} label={props.buttonLabel} onPress={() => navigation.push(nextScreen)} />
+        <PrimaryButton size={props.buttonSmall ? 'Small' : undefined} label={props.buttonLabel} onPress={() => {
+            navigation.push(nextScreen)
+          }} />
       </View>
     </Screen>
   );
 };
+
+interface SignUpScreenProps extends ViewProps {
+  signUp: (username: string) => Promise<void>;
+}
+
+function ProfileNameScreen({navigation, ...props}: SignUpScreenProps) {
+  const [username, onChangeText] = React.useState('');
+
+  return (
+    <Screen style={{backgroundColor: Palette.primary}}>
+      <KeyboardAvoidingView style={{alignItems: 'flex-start', paddingHorizontal: 24}}>
+      <Text variant={'Title'}>{props.description}</Text>
+      <View style={{flexDirection: 'row',
+          marginVertical: 12,
+        }}>
+        <Text style={{
+          color: Palette.background,
+          fontSize: 18,
+          borderBottomColor: Palette.placeholder,
+          borderBottomWidth: StyleSheet.hairlineWidth,
+        }}>@</Text>
+        <TextInput
+        style={{
+          color: Palette.white,
+          fontSize: 18,
+          borderBottomColor: Palette.white,
+          borderBottomWidth: StyleSheet.hairlineWidth,
+          width: 250,
+        }}
+        maxLength={20}
+        placeholderTextColor={Palette.placeholder}
+        onChangeText={text => onChangeText(text)}
+      placeholder={'BeatboxBandit'}/>
+      </View>
+      <PrimaryButton label={"Done."} onPress={() => {
+        props.signUp(username);
+        navigation.push('CoachScreen1');
+      }} />
+      </KeyboardAvoidingView>
+    </Screen>
+  );
+}
 
 interface OnboardingScreenProps {
   navigation: OnboardingNavigation;
@@ -34,6 +79,8 @@ interface OnboardingScreenProps {
 }
 
 export function OnboardingScreen({route, ...props}: OnboardingScreenProps) {
+  const {actions} = useContext(OnboardingContext);
+
   console.log(route);
   switch (route.name) {
     case 'Welcome':
@@ -45,18 +92,19 @@ export function OnboardingScreen({route, ...props}: OnboardingScreenProps) {
         {...props}
       />;
     case 'Profile':
-      return <OnboardingView
-        description="It'll help if I know what to call you, though."
-        buttonLabel='Done.'
-        nextScreen='CoachScreen1'
-        {...props}
-      />;
+      return <ProfileNameScreen {...props}
+      description="It'll help if I know what to call you..."
+      buttonLabel='Ok.'
+      nextScreen={'CoachScreen1'} 
+      signUp={actions.signUp}
+      />
     case 'CoachScreen1':
       return <OnboardingView
         description='Now, hit this button to get started.'
         buttonSmall={true}
         buttonLabel="What's my next project?"
         nextScreen='CoachScreen2'
+
         {...props}
       />;
     case 'CoachScreen2':
